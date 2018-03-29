@@ -12,6 +12,11 @@ buildscript {
         classpath 'io.ratpack:ratpack-groovy:1.2.0'
     }
 
+    configurations.all {
+        resolutionStrategy {
+          force "com.jcraft:jsch:0.1.54"
+        }
+    }
 }
 
 plugins {
