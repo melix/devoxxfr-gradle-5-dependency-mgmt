@@ -8,7 +8,7 @@ ifndef::sourcedir[:sourcedir: ../java]
 :navigation:
 :menu:
 :status:
-:title-slide-background-image: title.jpeg
+:title-slide-background-image: background_1280_720_HD.png 
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
 :icons: font
@@ -59,7 +59,7 @@ Misc OSS contribs (Gradle plugins, deck2pdf, jlangdetect, ...)'''
 === Gradle in figures
 
 [%step]
-* 4.0M downloads / month
+* 5.0M downloads / month
 [%step]
 * https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/[#17 OSS projects worldwide]
 [%step]
@@ -69,7 +69,7 @@ Misc OSS contribs (Gradle plugins, deck2pdf, jlangdetect, ...)'''
 
 === Gradle
 
-image::gradle-task-dag.png[height=350px]
+image::gradle-task-dag.png[height=350px, background=#FFFFFF]
 
 === A Java library
 

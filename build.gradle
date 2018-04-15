@@ -80,6 +80,9 @@ task copyTheme(type: Copy) {
     into("revealjs/reveal.js/css/theme") {
        from fileTree('src/docs/theme')
     }
+    into("revealjs/reveal.js/css/fonts") {
+       from fileTree('src/docs/fonts')
+    }
 }
 
 task copyScreencasts(type: Copy) {
