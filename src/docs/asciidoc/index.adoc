@@ -664,7 +664,7 @@ withModule('org.ow2.asm:asm') { module ->
 
 === Conclusion
 
-* Slides: https://melix.github.io/gradle-5-dependency-mgmt
+* Slides: https://melix.github.io/devoxxfr-gradle-5-dependency-mgmt
 * Discuss: @CedricChampeau
 
 [background-color="#01303a"]
