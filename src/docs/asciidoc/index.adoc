@@ -1,6 +1,3 @@
-= : Gradle 5 - Dependency Management
-Cédric Champeau (@CedricChampeau), Gradle
-2018-03-30
 :revnumber: {project-version}
 :example-caption!:
 ifndef::imagesdir[:imagesdir: images]
@@ -12,6 +9,11 @@ ifndef::sourcedir[:sourcedir: ../java]
 :title-slide-transition: zoom
 :title-slide-transition-speed: fast
 :icons: font
+
+= : Gradle 5
+Cédric Champeau (@CedricChampeau), Gradle
+2018-03-30
+En finir avec les problèmes de gestion de dépendances
 
 == Who am I
 
@@ -67,10 +69,6 @@ Misc OSS contribs (Gradle plugins, deck2pdf, jlangdetect, ...)'''
 [%step]
 * 300K builds/week @LinkedIn
 
-=== Gradle
-
-image::gradle-task-dag.png[height=350px, background=#FFFFFF]
-
 === A Java library
 
 [source,groovy]
@@ -91,12 +89,6 @@ dependencies {
 ----
 plugins {
    id 'cpp-application'
-}
-
-repositories {
-    maven {
-        url 'http://localhost:8000/'
-    }
 }
 
 dependencies {
@@ -246,7 +238,7 @@ See link:sample-module.json[sample]
 * `guava-jdk5`, `guava-jdk7`, ... no longer need to be classifiers
 * attributes for matching variants
 
-=== Native dependency management
+=== For native
 
 image::04-google-test.gif[height=500px]
 
@@ -256,12 +248,12 @@ image::04-google-test.gif[height=500px]
 ----
 > Task :subvola:gorgoneum:teerer:polytonal:dependencyInsight 
 project :outissue:carnally
-   variant "debugRuntimeElements" [
-      com.android.build.api.attributes.BuildTypeAttr      = debug
-      com.android.build.gradle.dependency.VariantAttr     = debug (not requested)
-      org.gradle.usage                                    = java-runtime
-      com.android.build.gradle.dependency.AndroidTypeAttr = Aar
-   ]
+  variant "debugRuntimeElements" [
+    c.android.b.a.attributes.BuildTypeAttr   = debug
+    c.android.b.g.dep.VariantAttr            = debug (not requested)
+    org.gradle.usage                         = java-runtime
+    c.android.b.gradle.dep.AndroidTypeAttr   = Aar
+  ]
 ----
 
 === Variant-awareness
@@ -303,18 +295,20 @@ dependencies {
 
 === Custom dependency reasons
 
-* Shown in dependency insight (soon in build scans)
+* Shown in dependency insight report
 
-`gradle dependencyInsight --configuration compileClasspath --dependency guava`
 
-[source,text]
-----
+```
+> gradle dependencyInsight 
+         --configuration compileClasspath 
+         --dependency guava
+
 org:foo:com.google.guava:guava:23 (required for immutable collections)
    variant "default" [
       Requested attributes not found in the selected variant:
          org.gradle.usage = java-api
    ]
-----
+```
 
 === Strict versions
 
@@ -456,12 +450,11 @@ Problem: you shouldn't have both on classpath
 
 * If anybody introduces a conflict, we _will_ discover it:
 
-[source,text]
-----
+```
 Cannot choose between 
     cglib:cglib-nodep:3.2.5 and cglib:cglib:3.2.5 
     because they provide the same capability: cglib:cglib:3.2.5
-----
+```
 
 === How to declare capabilities?
 
@@ -502,7 +495,7 @@ configurations.api
 
 === Idea: make dynamic dependencies acceptable
 
-* Ranges are bad for reproducibility: `[1.0, )`
+* Ranges bad for reproducibility: `[1.0, )`
 * May break build without notice
 * Doesn't enforce a tested version
 
@@ -513,6 +506,42 @@ configurations.api
 * Use the lock file when resolving
 * Lock file is pushed to VCS
 * Fail if a dependency was upgraded
+
+=== Usage
+
+* Activate locking
+
+```
+dependencyLocking {
+   lockAllConfigurations()
+}
+```
+
+* Generate locks
+
+```
+./gradlew dependencies --write-locks
+```
+
+=== Example lock file
+
+.compileClasspath.lockfile
+[source,text]
+----
+# This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+android.arch.core:common:1.0.0
+android.arch.lifecycle:common:1.0.3
+android.arch.lifecycle:runtime:1.0.3
+com.android.support:animated-vector-drawable:27.0.2
+com.android.support:appcompat-v7:27.0.2
+com.android.support:support-annotations:27.0.2
+com.android.support:support-compat:27.0.2
+com.android.support:support-core-ui:27.0.2
+com.android.support:support-core-utils:27.0.2
+...
+----
 
 [background-color="#01303a"]
 == Alignment
@@ -585,7 +614,8 @@ Execution failed for task ':buildInit:dependencies'.
        Constraint path 'org.gradle:buildInit:4.6' 
           --> 'org.gradle:core:4.6' 
           --> 'org.gradle:baseServices:4.6' 
-          --> 'com.google.collections:google-collections' rejects all versions because of the following reason: Guava replaces google collections
+          --> 'com.google.collections:google-collections' rejects all versions 
+              because of the following reason: Guava replaces google collections
 ----
 
 === Deprecated modules
@@ -661,6 +691,8 @@ withModule('org.ow2.asm:asm') { module ->
 
 [background-color="#01303a"]
 == Conclusion
+
+Be part of the new world!
 
 === Conclusion
 
