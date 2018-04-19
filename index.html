@@ -115,12 +115,12 @@ org:foo:com.google.guava:guava:23 (required for immutable collections)
     }
     // ...
 }</code></pre></div></div></section><section id="platform-vs-library"><h2>Platform vs library</h2><div class="ulist"><ul><li><p>Platforms define things that "work together"</p></li><li><p>Suggests versions, not hard dependencies</p></li><li><p>Consumers <em>depend on</em> a platform for suggestions</p></li></ul></div>
-<div class="paragraph"><p>Example: Spring Boot BOM</p></div></section><section id="constraints-as-platforms"><h2>Constraints as platforms</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">apply plugin: 'platform'
+<div class="paragraph"><p>Example: Spring Boot BOM</p></div></section><section id="constraints-as-platforms"><h2>Constraints as platforms</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">apply plugin: 'java-platform'
 
 dependencies {
    constraints {
-       platform 'org.springframework.boot:spring-boot:1.5.8-RELEASE'
-       platform 'org.springframework.boot:spring-boot-test-autoconfigure:1.5.8-RELEASE'
+       platformApi 'org.springframework.boot:spring-boot:1.5.8-RELEASE'
+       platformApi 'org.springframework.boot:spring-boot-test-autoconfigure:1.5.8-RELEASE'
        // ...
    }
 }</code></pre></div></div></section><section id="constraints-publication"><h2>Constraints publication</h2><div class="ulist"><ul><li><p>Published as constraints in Gradle metadata</p></li></ul></div>
