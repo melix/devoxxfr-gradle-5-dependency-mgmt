@@ -1,8 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta name="author" content="Cédric Champeau (@CedricChampeau), Gradle" /><title>: Gradle 5 - Dependency Management</title><meta content="yes" name="apple-mobile-web-app-capable" /><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport" /><link href="reveal.js/css/reveal.css" rel="stylesheet" /><link rel="stylesheet" href="reveal.js/css/theme/devoxx.css" id="theme" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" /><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet" /><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script><link rel="stylesheet" type="text/css" href="reveal.js/css/theme/asciinema-player.css" />
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta name="author" content="Cédric Champeau (@CedricChampeau), Gradle" /><title>: Gradle 5</title><meta content="yes" name="apple-mobile-web-app-capable" /><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport" /><link href="reveal.js/css/reveal.css" rel="stylesheet" /><link rel="stylesheet" href="reveal.js/css/theme/devoxx.css" id="theme" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" /><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet" /><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script><link rel="stylesheet" type="text/css" href="reveal.js/css/theme/asciinema-player.css" />
 <link rel="stylesheet" type="text/css" href="reveal.js/css/theme/github-gist.css" />
 <script src="reveal.js/css/theme/asciinema-player.js"></script>
 
-</head><body><div class="reveal"><div class="slides"><section class="title" data-state="title" data-transition="zoom" data-transition-speed="fast" data-background-image="./images/background_1280_720_HD.png"><h1></h1><h2>Gradle 5 - Dependency Management</h2><p class="author"><small>Cédric Champeau (@CedricChampeau), Gradle</small></p></section><section id="who-am-i"><h2>Who am I</h2><style>
+</head><body><div class="reveal"><div class="slides"><section class="title" data-state="title" data-transition="zoom" data-transition-speed="fast" data-background-image="./images/background_1280_720_HD.png"><h1></h1><h2>Gradle 5</h2><div class="preamble"><div class="paragraph"><p>En finir avec les problèmes de gestion de dépendances</p></div></div><p class="author"><small>Cédric Champeau (@CedricChampeau), Gradle</small></p></section>
+<section id="who-am-i"><h2>Who am I</h2><style>
 .asciinema-terminal.font-medium {
   font-size: 16px;
 }
@@ -22,7 +23,7 @@
         extraDescription '''Groovy in Action 2 co-author
 Misc OSS contribs (Gradle plugins, deck2pdf, jlangdetect, ...)'''
 }</code></pre></div></div></section>
-<section><section id="gradle-in-a-nutshell" data-background-color="#01303a"><h2>Gradle in a nutshell</h2></section><section id="agnostic-build-system"><h2>Agnostic Build System</h2><div class="ulist"><ul><li><p>Java ecosystem</p><div class="ulist"><ul><li><p>Groovy, Kotlin, Scala, &#8230;&#8203;</p></li></ul></div></li><li><p>Native ecosystem</p><div class="ulist"><ul><li><p>C, C++, Swift, &#8230;&#8203;</p></li></ul></div></li><li><p>Android</p></li><li><p>Misc</p><div class="ulist"><ul><li><p>Go, Asciidoctor, &#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="gradle-in-figures"><h2>Gradle in figures</h2><div class="ulist"><ul><li class="fragment"><p>5.0M downloads / month</p></li><li class="fragment"><p><a href="https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/">#17 OSS projects worldwide</a></p></li><li class="fragment"><p>35 Gradle Engineers</p></li><li class="fragment"><p>300K builds/week @LinkedIn</p></li></ul></div></section><section id="gradle"><h2>Gradle</h2><div class="imageblock" style=""><img src="./images/gradle-task-dag.png" alt="gradle task dag" width="1280" height="350px" style="background: #FFFFFF" /></div></section><section id="a-java-library"><h2>A Java library</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">plugins {
+<section><section id="gradle-in-a-nutshell" data-background-color="#01303a"><h2>Gradle in a nutshell</h2></section><section id="agnostic-build-system"><h2>Agnostic Build System</h2><div class="ulist"><ul><li><p>Java ecosystem</p><div class="ulist"><ul><li><p>Groovy, Kotlin, Scala, &#8230;&#8203;</p></li></ul></div></li><li><p>Native ecosystem</p><div class="ulist"><ul><li><p>C, C++, Swift, &#8230;&#8203;</p></li></ul></div></li><li><p>Android</p></li><li><p>Misc</p><div class="ulist"><ul><li><p>Go, Asciidoctor, &#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="gradle-in-figures"><h2>Gradle in figures</h2><div class="ulist"><ul><li class="fragment"><p>5.0M downloads / month</p></li><li class="fragment"><p><a href="https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/">#17 OSS projects worldwide</a></p></li><li class="fragment"><p>35 Gradle Engineers</p></li><li class="fragment"><p>300K builds/week @LinkedIn</p></li></ul></div></section><section id="a-java-library"><h2>A Java library</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">plugins {
    id 'java-library'
 }
 
@@ -31,12 +32,6 @@ dependencies {
    implementation 'com.zoo:monkey:1.1'
 }</code></pre></div></div></section><section id="a-native-app"><h2>A native app</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">plugins {
    id 'cpp-application'
-}
-
-repositories {
-    maven {
-        url 'http://localhost:8000/'
-    }
 }
 
 dependencies {
@@ -159,7 +154,24 @@ dependencies {
         // ...
     ]
 }</code></pre></div></div></section></section>
-<section><section id="dependency-locking" data-background-color="#01303a"><h2>Dependency locking</h2></section><section id="idea-make-dynamic-dependencies-acceptable"><h2>Idea: make dynamic dependencies acceptable</h2><div class="ulist"><ul><li><p>Ranges are bad for reproducibility: <code>[1.0, )</code></p></li><li><p>May break build without notice</p></li><li><p>Doesn&#8217;t enforce a tested version</p></li></ul></div></section><section id="dependency-locking-2"><h2>Dependency locking</h2><div class="ulist"><ul><li><p>Remember <em>resolved</em> version numbers</p></li><li><p><em>Lock</em> them in a lock file</p></li><li><p>Use the lock file when resolving</p></li><li><p>Lock file is pushed to VCS</p></li><li><p>Fail if a dependency was upgraded</p></li></ul></div></section></section>
+<section><section id="dependency-locking" data-background-color="#01303a"><h2>Dependency locking</h2></section><section id="idea-make-dynamic-dependencies-acceptable"><h2>Idea: make dynamic dependencies acceptable</h2><div class="ulist"><ul><li><p>Ranges bad for reproducibility: <code>[1.0, )</code></p></li><li><p>May break build without notice</p></li><li><p>Doesn&#8217;t enforce a tested version</p></li></ul></div></section><section id="dependency-locking-2"><h2>Dependency locking</h2><div class="ulist"><ul><li><p>Remember <em>resolved</em> version numbers</p></li><li><p><em>Lock</em> them in a lock file</p></li><li><p>Use the lock file when resolving</p></li><li><p>Lock file is pushed to VCS</p></li><li><p>Fail if a dependency was upgraded</p></li></ul></div></section><section id="usage"><h2>Usage</h2><div class="ulist"><ul><li><p>Activate locking</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>dependencyLocking {
+   lockAllConfigurations()
+}</code></pre></div></div>
+<div class="ulist"><ul><li><p>Generate locks</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>./gradlew dependencies --write-locks</code></pre></div></div></section><section id="example-lock-file"><h2>Example lock file</h2><div class="listingblock"><div class="title">compileClasspath.lockfile</div><div class="content"><pre class="highlight"><code class="text language-text"># This is a Gradle generated file for dependency locking.
+# Manual edits can break the build and are not advised.
+# This file is expected to be part of source control.
+android.arch.core:common:1.0.0
+android.arch.lifecycle:common:1.0.3
+android.arch.lifecycle:runtime:1.0.3
+com.android.support:animated-vector-drawable:27.0.2
+com.android.support:appcompat-v7:27.0.2
+com.android.support:support-annotations:27.0.2
+com.android.support:support-compat:27.0.2
+com.android.support:support-core-ui:27.0.2
+com.android.support:support-core-utils:27.0.2
+...</code></pre></div></div></section></section>
 <section><section id="alignment" data-background-color="#01303a"><h2>Alignment</h2></section><section id="module-sets"><h2>Module sets</h2><div class="ulist"><ul><li><p>Some modules are meant to be used together</p><div class="ulist"><ul><li><p>e.g: <code>groovy-2.4.15</code> with <code>groovy-json-2.4.15</code></p></li></ul></div></li><li><p>if one is upgraded, the other has to be upgraded too</p></li></ul></div></section><section id="technique"><h2>Technique</h2><div class="ulist"><ul><li><p>Add constraints on all other modules</p></li></ul></div>
 <div class="paragraph"><p>e.g: <code>groovy</code> has a constraint on <code>groovy-json</code>:</p></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">dependencies {
@@ -190,7 +202,8 @@ dependencies {
        Constraint path 'org.gradle:buildInit:4.6'
           --&gt; 'org.gradle:core:4.6'
           --&gt; 'org.gradle:baseServices:4.6'
-          --&gt; 'com.google.collections:google-collections' rejects all versions because of the following reason: Guava replaces google collections</code></pre></div></div></section><section id="deprecated-modules"><h2>Deprecated modules</h2><div class="ulist"><ul><li><p>Use case: "Library X is deprecated, please use Y instead"</p></li><li><p>Similar to blacklisting</p></li><li><p>Warn instead of fail</p></li></ul></div></section></section>
+          --&gt; 'com.google.collections:google-collections' rejects all versions
+              because of the following reason: Guava replaces google collections</code></pre></div></div></section><section id="deprecated-modules"><h2>Deprecated modules</h2><div class="ulist"><ul><li><p>Use case: "Library X is deprecated, please use Y instead"</p></li><li><p>Similar to blacklisting</p></li><li><p>Warn instead of fail</p></li></ul></div></section></section>
 <section><section id="component-metadata-rules" data-background-color="#01303a"><h2>Component metadata rules</h2></section><section id="fixing-bad-metadata"><h2>Fixing bad metadata</h2><div class="ulist"><ul><li><p>Libraries are often published with <em>bad</em> metadata</p><div class="ulist"><ul><li><p>strong dependencies instead of optional</p></li><li><p>wrong scope</p></li><li><p>incorrect version</p></li><li><p>excludes that shouldn&#8217;t be there</p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="component-metadata-rules-2"><h2>Component metadata rules</h2><div class="ulist"><ul><li><p>Modifies metadata of a component (consumer only)</p></li><li><p>Allows adding/removing dependencies/constraints/capabilities</p></li></ul></div></section><section id="component-metadata-rules-example-1"><h2>Component metadata rules: example 1</h2><div class="ulist"><ul><li><p>Downgrading a dependency</p></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code class="kotlin language-kotlin">withModule(module) {
    allVariants {
@@ -216,7 +229,7 @@ dependencies {
       }
    }
 }</code></pre></div></div></section></section>
-<section><section id="conclusion" data-background-color="#01303a"><h2>Conclusion</h2></section><section id="conclusion-2"><h2>Conclusion</h2><div class="ulist"><ul><li><p>Slides: <a href="https://melix.github.io/devoxxfr-gradle-5-dependency-mgmt" class="bare">https://melix.github.io/devoxxfr-gradle-5-dependency-mgmt</a></p></li><li><p>Discuss: @CedricChampeau</p></li></ul></div></section></section>
+<section><section id="conclusion" data-background-color="#01303a"><h2>Conclusion</h2><div class="paragraph"><p>Be part of the new world!</p></div></section><section id="conclusion-2"><h2>Conclusion</h2><div class="ulist"><ul><li><p>Slides: <a href="https://melix.github.io/devoxxfr-gradle-5-dependency-mgmt" class="bare">https://melix.github.io/devoxxfr-gradle-5-dependency-mgmt</a></p></li><li><p>Discuss: @CedricChampeau</p></li></ul></div></section></section>
 <section id="thanks" data-background-color="#01303a"><h2>Thanks!</h2></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
