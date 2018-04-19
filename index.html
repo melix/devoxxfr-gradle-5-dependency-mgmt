@@ -73,9 +73,12 @@ project :outissue:carnally
       version { prefer '23' }
       because 'required for immutable collections'
    }
-}</code></pre></div></div></section><section id="custom-dependency-reasons-2"><h2>Custom dependency reasons</h2><div class="ulist"><ul><li><p>Shown in dependency insight (soon in build scans)</p></li></ul></div>
-<div class="paragraph"><p><code>gradle dependencyInsight --configuration compileClasspath --dependency guava</code></p></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code class="text language-text">org:foo:com.google.guava:guava:23 (required for immutable collections)
+}</code></pre></div></div></section><section id="custom-dependency-reasons-2"><h2>Custom dependency reasons</h2><div class="ulist"><ul><li><p>Shown in dependency insight report</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>&gt; gradle dependencyInsight
+         --configuration compileClasspath
+         --dependency guava
+
+org:foo:com.google.guava:guava:23 (required for immutable collections)
    variant "default" [
       Requested attributes not found in the selected variant:
          org.gradle.usage = java-api
@@ -135,7 +138,7 @@ dependencies {
 <div class="ulist"><ul><li><p>Published as <code>&lt;dependencyManagement&gt;</code> in <code>pom.xml</code> (best effort)</p></li></ul></div></section></section>
 <section><section id="capabilities" data-background-color="#01303a"><h2>Capabilities</h2></section><section id="not-all-conflicts-are-version-conflicts"><h2>Not all conflicts are version conflicts</h2><div class="ulist"><ul><li><p><code>awesome-lib</code> depends on <code>commons-logging</code></p></li><li><p><code>react-lib</code> depends on <code>jcl-over-slf4j</code></p></li></ul></div>
 <div class="paragraph"><p>Problem: you shouldn&#8217;t have both on classpath</p></div></section><section id="not-all-conflicts-are-version-conflicts-2"><h2>Not all conflicts are version conflicts</h2><div class="ulist"><ul><li><p><code>google-collections</code> was superceded by <code>guava</code></p></li><li><p><code>groovy-all</code> provides the same capability as <code>groovy</code></p></li></ul></div></section><section id="future-proof"><h2>Future-proof</h2><div class="ulist"><ul><li><p>If anybody introduces a conflict, we <em>will</em> discover it:</p></li></ul></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code class="text language-text">Cannot choose between
+<div class="listingblock"><div class="content"><pre class="highlight"><code>Cannot choose between
     cglib:cglib-nodep:3.2.5 and cglib:cglib:3.2.5
     because they provide the same capability: cglib:cglib:3.2.5</code></pre></div></div></section><section id="how-to-declare-capabilities"><h2>How to declare capabilities?</h2><div class="ulist"><ul><li><p>Capabilities are <em>versioned</em></p></li><li><p>Each component provides an <em>implicit capability</em> corresponding to its GAV</p></li><li><p>Additional capabilities declares on outgoing variants</p></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">configurations.api
